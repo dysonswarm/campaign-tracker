@@ -1,11 +1,19 @@
-import { createPost } from "@/actions/actions";
+import { createPost } from "@/app/actions/actions";
+import { auth } from "@/lib/auth";
 import prisma from "@/lib/db";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Posts() {
+  const session = await auth();
+  if (!session?.user?.email) {
+    console.log("No user email found");
+    redirect("/");
+  }
+
   const user = await prisma.user.findUnique({
     where: {
-      email: "trsch2012@live.com",
+      email: session?.user?.email,
     },
     include: {
       posts: true,
@@ -13,7 +21,7 @@ export default async function Posts() {
   });
   const postsCount = await prisma.user.count({
     where: {
-      email: "trsch2012@live.com",
+      email: session?.user?.email,
     },
   });
 

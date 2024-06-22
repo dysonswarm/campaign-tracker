@@ -6,12 +6,8 @@ const initialPosts: Prisma.PostCreateInput[] = [
     slug: "post-1",
     content: "Content for post 1",
     author: {
-      connectOrCreate: {
-        where: { email: "trsch2012@live.com" },
-        create: {
-          email: "trsch2012@live.com",
-          hashedPassword: "password",
-        },
+      connect: {
+        id: "clxql13hl00009s9msqyt6wdf",
       },
     },
   },
