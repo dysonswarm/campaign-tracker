@@ -1,5 +1,14 @@
 import prisma from "@/lib/db";
 
+export async function generateStaticParams() {
+  const post = await prisma.post.findMany({
+    select: {
+      slug: true,
+    },
+  });
+  return post.map((post) => ({ slug: post.slug }));
+}
+
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = await prisma.post.findUnique({
     where: {

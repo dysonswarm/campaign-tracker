@@ -1,17 +1,26 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
-const initialPosts: Prisma.PostCreateInput[] = [
-  {
-    title: "Post 1",
-    slug: "post-1",
-    content: "Content for post 1",
-    author: {
-      connect: {
-        id: "clxql13hl00009s9msqyt6wdf",
-      },
-    },
+import { LoremIpsum } from "lorem-ipsum";
+const lorem = new LoremIpsum({
+  sentencesPerParagraph: {
+    max: 8,
+    min: 4,
   },
-];
+  wordsPerSentence: {
+    max: 16,
+    min: 4,
+  },
+});
+const prisma = new PrismaClient();
+const initialPosts: Prisma.PostCreateInput[] = [];
+for (let i = 2; i <= 100; i++) {
+  initialPosts.push({
+    title: "Post " + i,
+    slug: "post-" + i,
+    content: lorem.generateParagraphs(3),
+    author: { connect: { id: "clxql13hl00009s9msqyt6wdf" } },
+  });
+}
+
 async function main() {
   console.log(`Start seeding ...`);
 
