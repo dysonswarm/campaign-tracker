@@ -1,9 +1,10 @@
 import { SignIn } from "@/components/auth/signin-button";
-import styles from "./page.module.css";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div>
+      <Button>Click me</Button>
       <SignIn redirectTo="/posts" />
     </div>
   );
