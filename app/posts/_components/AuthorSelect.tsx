@@ -1,4 +1,10 @@
-import { Select } from "@radix-ui/themes";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Suspense } from "react";
 import { AuthorSelectItems } from "./AuthorSelectItems";
 interface AuthorSelectProps {
@@ -10,25 +16,24 @@ export function AuthorSelect({
   defaultValue = "none",
 }: AuthorSelectProps) {
   return (
-    <Select.Root defaultValue={defaultValue} name={name}>
-      <Select.Trigger variant="classic" />
-      <Select.Content>
-        <Select.Item value="none" disabled>
-          Select an author...
-        </Select.Item>
+    <Select defaultValue={defaultValue} name={name}>
+      <SelectTrigger>
+        <SelectValue placeholder="Select an author..." />
+      </SelectTrigger>
+      <SelectContent>
         <Suspense
           fallback={
-            <Select.Item
+            <SelectItem
               value={defaultValue !== "none" ? defaultValue : "loading"}
               disabled
             >
               LOADING...
-            </Select.Item>
+            </SelectItem>
           }
         >
           <AuthorSelectItems />
         </Suspense>
-      </Select.Content>
-    </Select.Root>
+      </SelectContent>
+    </Select>
   );
 }

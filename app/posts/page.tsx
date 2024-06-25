@@ -1,5 +1,7 @@
 import { PostList } from "@/components/posts/post-list";
-import { Button, Container, Flex, TextField } from "@radix-ui/themes";
+import { Input } from "@/components/ui/input";
+
+import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import { AuthorSelect } from "./_components/AuthorSelect";
 
@@ -17,10 +19,10 @@ export default function Posts({
   const title = firstOrUndefined(searchParams.title);
   const authorId = firstOrUndefined(searchParams.authorId);
   return (
-    <Container>
+    <div>
       <form method="GET" action="/posts">
-        <Flex direction="row" gap="2">
-          <TextField.Root
+        <div className="flex flex-row gap-2">
+          <Input
             placeholder="Title"
             id="title"
             name="title"
@@ -28,7 +30,7 @@ export default function Posts({
           />
           <AuthorSelect name="authorId" defaultValue={authorId} />
           <Button type="submit">Apply</Button>
-        </Flex>
+        </div>
       </form>
       <Suspense fallback={<div>Loading...</div>}>
         <PostList title={title} authorId={authorId} />
@@ -53,6 +55,6 @@ export default function Posts({
           Create Post
         </button>
       </form> */}
-    </Container>
+    </div>
   );
 }

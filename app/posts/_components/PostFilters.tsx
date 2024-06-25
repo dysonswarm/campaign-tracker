@@ -1,4 +1,5 @@
-import { Button, Flex, TextField } from "@radix-ui/themes";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { AuthorSelect } from "./AuthorSelect";
 
 interface PostFiltersProps {
@@ -14,11 +15,11 @@ export function PostFilters({ filterUpdate }: PostFiltersProps) {
         )
       }
     >
-      <Flex direction="row" gap="2">
-        <TextField.Root placeholder="Title" id="title" name="title" />
+      <div className="flex flex-row gap-2">
+        <Input placeholder="Title" id="title" name="title" />
         <AuthorSelect name="authorId" />
         <Button type="submit">Apply</Button>
-      </Flex>
+      </div>
     </form>
   );
 }

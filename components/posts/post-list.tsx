@@ -1,8 +1,15 @@
 "use server";
 
 import { Date } from "@/components/date";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
 import prisma from "@/lib/db";
-import { Table } from "@radix-ui/themes";
 import Link from "next/link";
 
 interface PostListProps {
@@ -31,28 +38,28 @@ export async function PostList({ title, authorId }: PostListProps) {
   return (
     <>
       <h1 className="text-3xl font-semibold">All Posts ({postsCount})</h1>
-      <Table.Root>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Author</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Created Date</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Title</TableHead>
+            <TableHead>Author</TableHead>
+            <TableHead>Created Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {posts.map((post) => (
-            <Table.Row key={post.id}>
-              <Table.RowHeaderCell>
+            <TableRow key={post.id}>
+              <TableCell className="font-medium">
                 <Link href={`/posts/${post.slug}`}>{post.title}</Link>
-              </Table.RowHeaderCell>
-              <Table.Cell>{post.author.name}</Table.Cell>
-              <Table.Cell>
+              </TableCell>
+              <TableCell>{post.author.name}</TableCell>
+              <TableCell>
                 <Date date={post.createdAt} />
-              </Table.Cell>
-            </Table.Row>
+              </TableCell>
+            </TableRow>
           ))}
-        </Table.Body>
-      </Table.Root>
+        </TableBody>
+      </Table>
     </>
   );
 }
