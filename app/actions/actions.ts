@@ -10,7 +10,7 @@ export async function createPost(formData: FormData) {
       data: {
         author: {
           connect: {
-            email: "trsch2012@live.com",
+            email: "trsch2005@gmail.com",
           },
         },
         title: formData.get("title") as string,
@@ -26,7 +26,11 @@ export async function createPost(formData: FormData) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
         console.error("Post already exists");
+      } else {
+        throw error;
       }
+    } else {
+      throw error;
     }
   }
   revalidatePath("/posts");

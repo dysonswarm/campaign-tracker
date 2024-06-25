@@ -1,14 +1,29 @@
 import { SignOut } from "@/components/auth/signout-button";
+import { auth } from "@/lib/auth";
+import { SessionProvider } from "next-auth/react";
 
-export default function Layout({
+export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  if (session?.user) {
+    // TODO: Look into https://react.dev/reference/react/experimental_taintObjectReference
+    // filter out sensitive data before passing to client.
+    session.user = {
+      name: session.user.name,
+      email: session.user.email,
+      image: session.user.image,
+    };
+  }
+
   return (
     <div>
       <SignOut />
-      {children}
+      <SessionProvider basePath={"/"} session={session}>
+        {children}
+      </SessionProvider>
     </div>
   );
 }

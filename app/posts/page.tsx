@@ -1,43 +1,39 @@
-import { createPost } from "@/app/actions/actions";
-import { auth } from "@/lib/auth";
-import prisma from "@/lib/db";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { PostList } from "@/components/posts/post-list";
+import { Button, Container, Flex, TextField } from "@radix-ui/themes";
+import { Suspense } from "react";
+import { AuthorSelect } from "./_components/AuthorSelect";
 
-export default async function Posts() {
-  const session = await auth();
-  if (!session?.user?.email) {
-    console.log("No user email found");
-    redirect("/");
-  }
+function firstOrUndefined(value: string | string[] | undefined) {
+  if (value === undefined) return undefined;
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session?.user?.email,
-    },
-    include: {
-      posts: true,
-    },
-  });
-  const postsCount = await prisma.user.count({
-    where: {
-      email: session?.user?.email,
-    },
-  });
-
+export default function Posts({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const title = firstOrUndefined(searchParams.title);
+  const authorId = firstOrUndefined(searchParams.authorId);
   return (
-    <main className="flex flex-col items-center gap-y-5 pt-24 text-center">
-      <h1 className="text-3xl font-semibold">
-        All Posts ({postsCount}) for {user?.email}
-      </h1>
-      <ul className="border-t border-b border-black/10 py-5 leading-8">
-        {user?.posts.map((post) => (
-          <li key={post.id} className="flex items-center justify-between px-5">
-            <Link href={`/posts/${post.slug}`}>{post.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <form className="flex flex-col gap-y-2 w-[300px]" action={createPost}>
+    <Container>
+      <form method="GET" action="/posts">
+        <Flex direction="row" gap="2">
+          <TextField.Root
+            placeholder="Title"
+            id="title"
+            name="title"
+            defaultValue={title}
+          />
+          <AuthorSelect name="authorId" defaultValue={authorId} />
+          <Button type="submit">Apply</Button>
+        </Flex>
+      </form>
+      <Suspense fallback={<div>Loading...</div>}>
+        <PostList title={title} authorId={authorId} />
+      </Suspense>
+      {/* <form className="flex flex-col gap-y-2 w-[300px]" action={createPost}>
         <input
           type="text"
           name="title"
@@ -56,7 +52,7 @@ export default async function Posts() {
         >
           Create Post
         </button>
-      </form>
-    </main>
+      </form> */}
+    </Container>
   );
 }
