@@ -1,17 +1,25 @@
-export async function Stock({ symbol, numOfMonths }) {
-  const data = await fetch(
-    `https://api.example.com/stock/${symbol}/${numOfMonths}`
-  );
+export async function Stock({
+  symbol,
+  numOfMonths,
+}: {
+  symbol: string;
+  numOfMonths: number;
+}) {
+  const data = await (
+    await fetch(`https://jsonplaceholder.typicode.com/todos`)
+  ).json();
 
   return (
     <div>
-      <div>{symbol}</div>
+      <div>
+        {symbol} - {numOfMonths}
+      </div>
 
       <div>
-        {data.timeline.map((data) => (
-          <div>
-            <div>{data.date}</div>
-            <div>{data.value}</div>
+        {data.map((data: { id: number; title: string; completed: boolean }) => (
+          <div key={data.id}>
+            <div>{data.title}</div>
+            <div>{data.completed ? "True" : "False"}</div>
           </div>
         ))}
       </div>
