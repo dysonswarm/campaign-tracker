@@ -1,5 +1,5 @@
 import { signIn } from "@/lib/auth";
 
 export default async function Home() {
-  await signIn(undefined, { redirectTo: "/dashboard" });
+	await signIn(undefined, { redirectTo: "/dashboard" });
 }
