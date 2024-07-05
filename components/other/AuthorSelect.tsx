@@ -11,10 +11,7 @@ interface AuthorSelectProps {
 	name: string;
 	defaultValue?: string;
 }
-export function AuthorSelect({
-	name,
-	defaultValue = "none",
-}: AuthorSelectProps) {
+export function AuthorSelect({ name, defaultValue = "none" }: AuthorSelectProps) {
 	return (
 		<Select defaultValue={defaultValue} name={name}>
 			<SelectTrigger>
@@ -24,11 +21,7 @@ export function AuthorSelect({
 				<Suspense
 					fallback={
 						<SelectItem
-							value={
-								defaultValue !== "none"
-									? defaultValue
-									: "loading"
-							}
+							value={defaultValue !== "none" ? defaultValue : "loading"}
 							disabled
 						>
 							LOADING...

@@ -9,10 +9,7 @@ export function PostFilters({ filterUpdate }: PostFiltersProps) {
 	return (
 		<form
 			action={(formData) =>
-				filterUpdate(
-					formData.get("title") as string,
-					formData.get("author") as string,
-				)
+				filterUpdate(formData.get("title") as string, formData.get("author") as string)
 			}
 		>
 			<div className="flex flex-row gap-2">

@@ -50,9 +50,7 @@ export async function PostList({ title, authorId }: PostListProps) {
 					{posts.map((post) => (
 						<TableRow key={post.id}>
 							<TableCell className="font-medium">
-								<Link href={`/posts/${post.slug}`}>
-									{post.title}
-								</Link>
+								<Link href={`/posts/${post.slug}`}>{post.title}</Link>
 							</TableCell>
 							<TableCell>{post.author.name}</TableCell>
 							<TableCell>

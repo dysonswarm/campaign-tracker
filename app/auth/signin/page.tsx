@@ -27,9 +27,7 @@ export default async function SignInPage() {
 						>
 							<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
 						</svg>
-						<span className="text-4xl font-medium text-white">
-							Campaign Tracker
-						</span>
+						<span className="text-4xl font-medium text-white">Campaign Tracker</span>
 					</h2>
 					<div className="flex flex-col gap-2 p-6 m-8 w-full bg-white rounded shadow-lg">
 						{Object.values(providerMap).map((provider) => (

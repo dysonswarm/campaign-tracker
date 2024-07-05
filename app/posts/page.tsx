@@ -22,12 +22,7 @@ export default function Posts({
 		<div>
 			<form method="GET" action="/posts">
 				<div className="flex flex-row gap-2">
-					<Input
-						placeholder="Title"
-						id="title"
-						name="title"
-						defaultValue={title}
-					/>
+					<Input placeholder="Title" id="title" name="title" defaultValue={title} />
 					<AuthorSelect name="authorId" defaultValue={authorId} />
 					<Button type="submit">Apply</Button>
 				</div>

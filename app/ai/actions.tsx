@@ -20,9 +20,7 @@ export interface ClientMessage {
 	display: ReactNode;
 }
 
-export async function continueConversation(
-	input: string,
-): Promise<ClientMessage> {
+export async function continueConversation(input: string): Promise<ClientMessage> {
 	"use server";
 	const session = await auth();
 	if (session === null) {
@@ -54,9 +52,7 @@ export async function continueConversation(
 				parameters: z.object({
 					repositoryName: z
 						.string()
-						.describe(
-							"The name of the repository, example: vercel/ai-chatbot",
-						),
+						.describe("The name of the repository, example: vercel/ai-chatbot"),
 				}),
 				generate: async function* ({ repositoryName }) {
 					yield <div>Cloning repository {repositoryName}...</div>; // [!code highlight:5]
@@ -67,17 +63,12 @@ export async function continueConversation(
 				},
 			},
 			showStockInformation: {
-				description:
-					"Get stock information for symbol for the last numOfMonths months",
+				description: "Get stock information for symbol for the last numOfMonths months",
 				parameters: z.object({
-					symbol: z
-						.string()
-						.describe("The stock symbol to get information for"),
+					symbol: z.string().describe("The stock symbol to get information for"),
 					numOfMonths: z
 						.number()
-						.describe(
-							"The number of months to get historical information for",
-						),
+						.describe("The number of months to get historical information for"),
 				}),
 				generate: async ({ symbol, numOfMonths }) => {
 					history.done((messages: ServerMessage[]) => [
@@ -94,9 +85,7 @@ export async function continueConversation(
 			showFlightStatus: {
 				description: "Get the status of a flight",
 				parameters: z.object({
-					flightNumber: z
-						.string()
-						.describe("The flight number to get status for"),
+					flightNumber: z.string().describe("The flight number to get status for"),
 				}),
 				generate: async ({ flightNumber }) => {
 					history.done((messages: ServerMessage[]) => [

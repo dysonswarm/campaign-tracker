@@ -35,25 +35,21 @@ export default function Home() {
 				/>
 				<button
 					onClick={async () => {
-						setConversation(
-							(currentConversation: ClientMessage[]) => [
-								...currentConversation,
-								{
-									id: generateId(),
-									role: "user",
-									display: input,
-								},
-							],
-						);
+						setConversation((currentConversation: ClientMessage[]) => [
+							...currentConversation,
+							{
+								id: generateId(),
+								role: "user",
+								display: input,
+							},
+						]);
 
 						const message = await continueConversation(input);
 
-						setConversation(
-							(currentConversation: ClientMessage[]) => [
-								...currentConversation,
-								message,
-							],
-						);
+						setConversation((currentConversation: ClientMessage[]) => [
+							...currentConversation,
+							message,
+						]);
 					}}
 				>
 					Send Message

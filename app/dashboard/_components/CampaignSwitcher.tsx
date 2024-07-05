@@ -9,11 +9,7 @@ import {
 	CommandItem,
 	CommandList,
 } from "@/components/ui/command";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { ComponentPropsWithoutRef, useState } from "react";
@@ -51,9 +47,7 @@ interface CampaignSwitcherProps extends PopoverTriggerProps {}
 
 export default function CampaignSwitcher({ className }: CampaignSwitcherProps) {
 	const [open, setOpen] = useState(false);
-	const [selectedTeam, setSelectedTeam] = useState<Team>(
-		groups[0].campaigns[0],
-	);
+	const [selectedTeam, setSelectedTeam] = useState<Team>(groups[0].campaigns[0]);
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -83,10 +77,7 @@ export default function CampaignSwitcher({ className }: CampaignSwitcherProps) {
 						<CommandInput placeholder="Search campaigns..." />
 						<CommandEmpty>No team found.</CommandEmpty>
 						{groups.map((group) => (
-							<CommandGroup
-								key={group.label}
-								heading={group.label}
-							>
+							<CommandGroup key={group.label} heading={group.label}>
 								{group.campaigns.map((campaign) => (
 									<CommandItem
 										key={campaign.value}
@@ -108,8 +99,7 @@ export default function CampaignSwitcher({ className }: CampaignSwitcherProps) {
 										<CheckIcon
 											className={cn(
 												"ml-auto h-4 w-4",
-												selectedTeam.value ===
-													campaign.value
+												selectedTeam.value === campaign.value
 													? "opacity-100"
 													: "opacity-0",
 											)}

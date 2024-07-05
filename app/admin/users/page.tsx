@@ -37,9 +37,7 @@ export default async function Users() {
 						<TableCell>{user.role}</TableCell>
 						<TableCell>
 							<a href={`/admin/users/${user.id}/edit`}>Edit</a> |{" "}
-							<a href={`/admin/users/${user.id}/delete`}>
-								Delete
-							</a>
+							<a href={`/admin/users/${user.id}/delete`}>Delete</a>
 						</TableCell>
 					</TableRow>
 				))}

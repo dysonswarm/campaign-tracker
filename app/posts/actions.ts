@@ -15,11 +15,7 @@ export async function createPost(formData: FormData) {
 				},
 				title: formData.get("title") as string,
 				content: formData.get("content") as string,
-				slug: formData
-					.get("title")
-					?.toString()
-					.toLowerCase()
-					.replace(/\s/g, "-") as string,
+				slug: formData.get("title")?.toString().toLowerCase().replace(/\s/g, "-") as string,
 			},
 		});
 	} catch (error) {
@@ -44,11 +40,7 @@ export async function editPost(formData: FormData, id: string) {
 		data: {
 			title: formData.get("title") as string,
 			content: formData.get("content") as string,
-			slug: formData
-				.get("title")
-				?.toString()
-				.toLowerCase()
-				.replace(/\s/g, "-") as string,
+			slug: formData.get("title")?.toString().toLowerCase().replace(/\s/g, "-") as string,
 		},
 	});
 }
