@@ -1,41 +1,41 @@
 import { PostList } from "@/components/posts/post-list";
 import { Input } from "@/components/ui/input";
 
+import { AuthorSelect } from "@/components/other/AuthorSelect";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
-import { AuthorSelect } from "./_components/AuthorSelect";
 
 function firstOrUndefined(value: string | string[] | undefined) {
-  if (value === undefined) return undefined;
-  if (Array.isArray(value)) return value[0];
-  return value;
+	if (value === undefined) return undefined;
+	if (Array.isArray(value)) return value[0];
+	return value;
 }
 
 export default function Posts({
-  searchParams,
+	searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+	searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const title = firstOrUndefined(searchParams.title);
-  const authorId = firstOrUndefined(searchParams.authorId);
-  return (
-    <div>
-      <form method="GET" action="/posts">
-        <div className="flex flex-row gap-2">
-          <Input
-            placeholder="Title"
-            id="title"
-            name="title"
-            defaultValue={title}
-          />
-          <AuthorSelect name="authorId" defaultValue={authorId} />
-          <Button type="submit">Apply</Button>
-        </div>
-      </form>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PostList title={title} authorId={authorId} />
-      </Suspense>
-      {/* <form className="flex flex-col gap-y-2 w-[300px]" action={createPost}>
+	const title = firstOrUndefined(searchParams.title);
+	const authorId = firstOrUndefined(searchParams.authorId);
+	return (
+		<div>
+			<form method="GET" action="/posts">
+				<div className="flex flex-row gap-2">
+					<Input
+						placeholder="Title"
+						id="title"
+						name="title"
+						defaultValue={title}
+					/>
+					<AuthorSelect name="authorId" defaultValue={authorId} />
+					<Button type="submit">Apply</Button>
+				</div>
+			</form>
+			<Suspense fallback={<div>Loading...</div>}>
+				<PostList title={title} authorId={authorId} />
+			</Suspense>
+			{/* <form className="flex flex-col gap-y-2 w-[300px]" action={createPost}>
         <input
           type="text"
           name="title"
@@ -55,6 +55,6 @@ export default function Posts({
           Create Post
         </button>
       </form> */}
-    </div>
-  );
+		</div>
+	);
 }

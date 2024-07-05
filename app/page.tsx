@@ -1,9 +1,5 @@
-import { SignIn } from "@/components/auth/signin-button";
+import { signIn } from "@/lib/auth";
 
-export default function Home() {
-  return (
-    <div>
-      <SignIn redirectTo="/dashboard" />
-    </div>
-  );
+export default async function Home() {
+  await signIn(undefined, { redirectTo: "/dashboard" });
 }
