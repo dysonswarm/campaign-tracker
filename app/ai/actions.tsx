@@ -16,7 +16,7 @@ export interface ClientMessage {
 	id: string;
 	role: "user" | "assistant";
 	display: ReactNode;
-	isWidget?: boolean;
+	isMessage?: boolean;
 }
 
 async function continueConversation(input: string): Promise<ClientMessage> {
@@ -34,12 +34,12 @@ async function continueConversation(input: string): Promise<ClientMessage> {
 
 	const result = await streamUI({
 		model: openai("gpt-3.5-turbo", { user: session?.user.id }),
-		messages: [...history.get(), { role: "user", content: input }],
+		messages: [...history.get(), { role: "user", content: input, isMessage: true }],
 		text: ({ content, done }) => {
 			if (done) {
 				history.done((messages: ServerMessage[]) => [
 					...messages,
-					{ role: "assistant", content },
+					{ role: "assistant", content, isMessage: true },
 				]);
 			}
 
@@ -66,6 +66,7 @@ export const AI = createAI<ServerMessage[], ClientMessage[]>({
 		{
 			id: generateId(),
 			role: "assistant",
+			isMessage: true,
 			display:
 				"Welcome to the campaign tracker! There are variety of tools available to help you manage your campaign. What would you like to do?",
 		},

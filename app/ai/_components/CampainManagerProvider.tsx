@@ -1,6 +1,8 @@
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { createContext, ReactNode, useCallback, useContext, useReducer } from "react";
+import { useUIState } from "ai/rsc";
+import { createContext, Fragment, ReactNode, useCallback, useReducer } from "react";
 import { ShopWidget } from "../_tools/ShopWidget";
+import { ClientMessage } from "../actions";
 import { CampaignManagerChat } from "./CampaignManagerChat";
 const widgetRegistry = {
 	ShopWidget,
@@ -51,29 +53,35 @@ export function CampaignManagerProvider({ children }: { children: ReactNode }) {
 }
 
 export function CampaignManager() {
+	const [conversation, setConversation] = useUIState();
 	return (
-		<CampaignManagerProvider>
-			<ResizablePanelGroup direction="horizontal" className="h-screen">
-				<ResizablePanel defaultSize={25} minSize={25} maxSize={50} collapsible={true}>
-					<CampaignManagerChat />
-				</ResizablePanel>
-				<ResizableHandle withHandle />
-				<ResizablePanel defaultSize={75}>
-					<WidgetDisplay />
-				</ResizablePanel>
-			</ResizablePanelGroup>
-		</CampaignManagerProvider>
+		<ResizablePanelGroup direction="horizontal" className="h-screen">
+			<ResizablePanel defaultSize={25} minSize={25} maxSize={50} collapsible={true}>
+				<CampaignManagerChat
+					conversation={conversation}
+					setConversation={setConversation}
+				/>
+			</ResizablePanel>
+			<ResizableHandle withHandle />
+			<ResizablePanel defaultSize={75}>
+				<WidgetDisplay conversation={conversation} />
+			</ResizablePanel>
+		</ResizablePanelGroup>
 	);
 }
 
-export function WidgetDisplay() {
-	const { state } = useContext(CampaignManagerContext);
+export function WidgetDisplay({ conversation }: { conversation: any }) {
 	return (
 		<>
-			{Object.values(state.widgets).map((widget) => {
-				const Component = widgetRegistry[widget.widget];
-				return <Component {...widget.data} />;
-			})}
+			{conversation
+				.filter((message: ClientMessage) => !message.isMessage)
+				.map((message: ClientMessage) => (
+					<Fragment key={message.id}>
+						<div className="flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent">
+							{message.role}: {message.display}
+						</div>
+					</Fragment>
+				))}
 		</>
 	);
 }
