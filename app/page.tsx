@@ -4,6 +4,7 @@ export default async function Home() {
 	try {
 		await signIn(undefined, { redirectTo: "/ai" });
 	} catch (ex) {
-		return <p>{JSON.stringify(ex)}</p>;
+		if (!(ex as { digest: string }).digest.startsWith("NEXT_REDIRECT")) return <p>{JSON.stringify(ex)}</p>;
+		throw ex;
 	}
 }
