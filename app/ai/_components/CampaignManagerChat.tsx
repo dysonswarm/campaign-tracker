@@ -38,6 +38,7 @@ export function CampaignManagerChat({
 					<form
 						ref={formRef}
 						action={async (formData: FormData) => {
+							setDisableSubmit(true);
 							const input = formData.get("messageText") as string;
 							if (!input) return;
 							formRef.current?.reset();
@@ -61,11 +62,7 @@ export function CampaignManagerChat({
 					>
 						<div className="grid gap-4">
 							<Textarea className="p-4" name="messageText" />
-							<Button
-								type="submit"
-								onClick={() => setDisableSubmit(true)}
-								disabled={disableSubmit}
-							>
+							<Button type="submit" disabled={disableSubmit}>
 								Send Message (Shift + Enter)
 							</Button>
 						</div>
