@@ -1,4 +1,4 @@
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { DefaultSession, Session, User } from "next-auth";
 import type { Provider } from "next-auth/providers";

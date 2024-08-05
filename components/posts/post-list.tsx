@@ -1,15 +1,8 @@
 "use server";
 
 import { Date } from "@/components/date";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
-import prisma from "@/lib/db";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { prisma } from "@/lib/db";
 import Link from "next/link";
 
 interface PostListProps {

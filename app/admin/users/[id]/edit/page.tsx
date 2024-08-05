@@ -1,11 +1,5 @@
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import prisma from "@/lib/db";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { prisma } from "@/lib/db";
 import { editUser } from "./actions";
 
 const roles = ["user", "admin", "trusted"];

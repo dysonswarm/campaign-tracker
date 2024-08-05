@@ -1,19 +1,12 @@
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/db";
+import { prisma } from "@/lib/db";
 
 export default async function Users() {
 	const session = await auth();
-	if (session?.user?.role !== "admin") {
-		throw new Error("Unauthorized");
-	}
+	// if (session?.user?.role !== "admin") {
+	// 	throw new Error("Unauthorized");
+	// }
 
 	const users = await prisma.user.findMany();
 

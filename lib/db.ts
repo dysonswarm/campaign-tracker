@@ -1,6 +1,8 @@
+import { PrismaVectorStore } from "@langchain/community/vectorstores/prisma";
+import { OpenAIEmbeddings } from "@langchain/openai";
 import { Pool } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { PrismaClient } from "@prisma/client";
+import { Document, Prisma, PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
 	const neon = new Pool({
@@ -16,6 +18,22 @@ declare const globalThis: {
 
 const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
 
-export default prisma;
+const vectorStore = PrismaVectorStore.withModel<Document>(prisma).create(
+	new OpenAIEmbeddings({
+		model: "text-embedding-3-small",
+	}),
+	{
+		prisma: Prisma,
+		tableName: "Document",
+		vectorColumnName: "vector",
+		columns: {
+			id: PrismaVectorStore.IdColumn,
+			content: PrismaVectorStore.ContentColumn,
+			slug: "string",
+		},
+	},
+);
+
+export { prisma, vectorStore };
 
 if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;
