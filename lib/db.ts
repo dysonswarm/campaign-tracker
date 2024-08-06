@@ -1,13 +1,14 @@
 import { PrismaVectorStore } from "@langchain/community/vectorstores/prisma";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { Pool } from "@neondatabase/serverless";
+import { Pool, neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { Document, Prisma, PrismaClient } from "@prisma/client";
-
+import ws from 'ws';
 const prismaClientSingleton = () => {
 	const neon = new Pool({
 		connectionString: process.env.DATABASE_URL,
 	});
+	neonConfig.webSocketConstructor = ws;
 	const adapter = new PrismaNeon(neon);
 	return new PrismaClient({ adapter });
 };
@@ -29,7 +30,7 @@ const vectorStore = PrismaVectorStore.withModel<Document>(prisma).create(
 		columns: {
 			id: PrismaVectorStore.IdColumn,
 			content: PrismaVectorStore.ContentColumn,
-			slug: "string",
+			slug: true
 		},
 	},
 );

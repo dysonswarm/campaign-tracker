@@ -1,8 +1,8 @@
 import { DataAPIClient } from "@datastax/astra-db-ts";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { prisma, vectorStore } from "../lib/db";
-const client = new DataAPIClient(process.env.ASTRA_DB_APPLICATION_TOKEN);
-const db = client.db(process.env.ASTRA_DB_API_ENDPOINT as string);
+// const client = new DataAPIClient(process.env.ASTRA_DB_APPLICATION_TOKEN);
+// const db = client.db(process.env.ASTRA_DB_API_ENDPOINT as string);
 interface Open5eApiResult<T> {
 	count: number;
 	next: any;
@@ -82,19 +82,19 @@ async function main() {
 		chunkSize: 500,
 		chunkOverlap: 50,
 	});
-	const collection = db.collection("dnd_vectors");
-	await collection.deleteMany();
+	//const collection = db.collection("dnd_vectors");
+//	await collection.deleteMany();
 	await prisma.document.deleteMany();
 
 	for (let i = 0; i < data.results.length; i++) {
 		const doc = buildDoc(data.results[i]);
 		const docsSplits = await textSplitter.splitText(doc);
 
-		await collection.insertMany(
-			docsSplits.map((x) => ({
-				$vectorize: x,
-			})),
-		);
+		// await collection.insertMany(
+		// 	docsSplits.map((x) => ({
+		// 		$vectorize: x,
+		// 	})),
+		// );
 
 		await vectorStore.addModels(
 			await prisma.$transaction(
