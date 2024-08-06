@@ -5,7 +5,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { generateId } from "ai";
 import { useActions } from "ai/rsc";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { ClientMessage } from "../actions";
 
 export function CampaignManagerChat({
 	conversation,
@@ -42,7 +41,7 @@ export function CampaignManagerChat({
 							const input = formData.get("messageText") as string;
 							if (!input) return;
 							formRef.current?.reset();
-							setConversation((currentConversation: ClientMessage[]) => [
+							setConversation((currentConversation: any[]) => [
 								...currentConversation,
 								{
 									id: generateId(),
@@ -53,7 +52,7 @@ export function CampaignManagerChat({
 
 							const message = await continueConversation(input);
 
-							setConversation((currentConversation: ClientMessage[]) => [
+							setConversation((currentConversation: any[]) => [
 								...currentConversation,
 								message,
 							]);
@@ -71,8 +70,8 @@ export function CampaignManagerChat({
 				<ScrollArea className="h-[calc(100vh-175px)]">
 					<div className="flex flex-col gap-2 p-4 pt-0">
 						{conversation
-							.filter((message: ClientMessage) => message.isMessage)
-							.map((message: ClientMessage) => (
+							.filter((message: any) => message.isMessage)
+							.map((message: any) => (
 								<Fragment key={message.id}>
 									<div className="flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent">
 										{message.role}: {message.display}
