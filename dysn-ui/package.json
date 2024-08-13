@@ -37,5 +37,26 @@
     "storybook": "^8.2.6",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
+  },
+  "exports": {
+    "./avatar": "./src/ui/avatar.tsx",
+    "./badge": "./src/ui/badge.tsx",
+    "./button": "./src/ui/button.tsx",
+    "./calendar": "./src/ui/calendar.tsx",
+    "./card": "./src/ui/card.tsx",
+    "./command": "./src/ui/command.tsx",
+    "./dialog": "./src/ui/dialog.tsx",
+    "./dropdown-menu": "./src/ui/dropdown-menu.tsx",
+    "./input": "./src/ui/input.tsx",
+    "./navigation-menu": "./src/ui/navigation-menu.tsx",
+    "./popover": "./src/ui/popover.tsx",
+    "./resizable": "./src/ui/resizable.tsx",
+    "./scroll-area": "./src/ui/scroll-area.tsx",
+    "./select": "./src/ui/select.tsx",
+    "./separator": "./src/ui/separator.tsx",
+    "./sheet": "./src/ui/sheet.tsx",
+    "./table": "./src/ui/table.tsx",
+    "./tabs": "./src/ui/tabs.tsx",
+    "./textarea": "./src/ui/textarea.tsx"
   }
 }
