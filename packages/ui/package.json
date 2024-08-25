@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./lib/utils": "./lib/utils.ts",
+    "./utils": "./lib/utils.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./global.css": "./global.css",
     "./components/theme-provider": "./components/theme-provider.tsx",

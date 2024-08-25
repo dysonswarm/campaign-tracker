@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@campaign-tracker/ui/components/theme-provider";
 import "@campaign-tracker/ui/global.css";
-import { cn } from "@campaign-tracker/ui/lib/utils";
+import { cn } from "@campaign-tracker/ui/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
