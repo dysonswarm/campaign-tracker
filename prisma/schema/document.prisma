@@ -1,7 +1,0 @@
-model Document {
-    id      String                 @id @default(cuid())
-    slug    String
-    type    String
-    content String
-    vector  Unsupported("vector")?
-}
