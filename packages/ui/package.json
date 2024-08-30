@@ -6,8 +6,8 @@
     "./utils": "./lib/utils.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./global.css": "./global.css",
-    "./components/theme-provider": "./components/theme-provider.tsx",
-    "./components/theme-switcher": "./components/ui/theme-switcher.tsx",
+    "./components/theme-provider": "./components/theme/theme-provider.tsx",
+    "./components/theme-switcher": "./components/theme/theme-switcher.tsx",
     "./components/accordion": "./components/ui/accordion.tsx",
     "./components/alert-dialog": "./components/ui/alert-dialog.tsx",
     "./components/alert": "./components/ui/alert.tsx",
@@ -61,6 +61,11 @@
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component"
   },
+  "peerDependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "react-hook-form": "^7.52.2",
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
     "@campaign-tracker/eslint-config": "workspace:*",
     "@campaign-tracker/typescript-config": "workspace:*",
@@ -82,7 +87,6 @@
     "lucide-react": "^0.427.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
-    "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
@@ -114,11 +118,9 @@
     "next-themes": "^0.3.0",
     "react": "^18.2.0",
     "react-day-picker": "8.10.1",
-    "react-hook-form": "^7.52.2",
     "react-resizable-panels": "^2.1.1",
     "recharts": "^2.12.7",
     "sonner": "^1.5.0",
-    "vaul": "^0.9.1",
-    "zod": "^3.23.8"
+    "vaul": "^0.9.1"
   }
 }

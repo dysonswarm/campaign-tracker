@@ -1,34 +1,22 @@
 "use client";
-import { Button } from "@campaign-tracker/ui/components/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@campaign-tracker/ui/components/card";
-import { Textarea } from "@campaign-tracker/ui/components/textarea";
-import React, { useState } from "react";
-
-interface Widget {
-  id: string;
-  type: string;
-  // Add more properties as needed
-}
+import { useState } from "react";
+import { ChatForm, Widget } from "./ChatForm";
 
 export function Dashboard() {
   const [widgets, setWidgets] = useState<Widget[]>([]);
-  const [chatInput, setChatInput] = useState("");
 
-  const handleChatSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleChatSubmit = async (form: Widget) => {
+    debugger;
     // Here you would integrate with your NLP service to process the chatInput
     // and determine which widget to add. For now, we'll just add a dummy widget.
-    const newWidget: Widget = {
-      id: Date.now().toString(),
-      type: "dummy",
-    };
-    setWidgets([...widgets, newWidget]);
-    setChatInput("");
+
+    setWidgets([...widgets, form]);
   };
 
   return (
@@ -41,19 +29,7 @@ export function Dashboard() {
               <CardTitle>Chat</CardTitle>
             </CardHeader>
             <CardContent>
-              <form
-                onSubmit={handleChatSubmit}
-                className="flex flex-col space-y-2"
-              >
-                <Textarea
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Describe the widget you want to add..."
-                  className="resize-none border rounded-md p-2"
-                  rows={3}
-                />
-                <Button type="submit">Add Widget</Button>
-              </form>
+              <ChatForm onSubmit={handleChatSubmit} />
             </CardContent>
           </Card>
         </div>
