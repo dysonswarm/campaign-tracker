@@ -1,16 +1,15 @@
 {
 	"folders": [
 		{
-			"path": "."
-		}
+			"path": ".",
+		},
 	],
 	"settings": {
-		"cody.internal.unstable": true
+		"cody.internal.unstable": true,
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
 	},
 	"extensions": {
-		"recommendations": [
-			"dbaeumer.vscode-eslint",
-			"prisma.prisma"
-		]
-	}
+		"recommendations": ["dbaeumer.vscode-eslint", "prisma.prisma"],
+	},
 }
