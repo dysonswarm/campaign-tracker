@@ -1,0 +1,23 @@
+# Use postgres/example user/password credentials
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: z?0%F.q(!bUA(CO}}3pT
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: campaign_tracker_db
+      POSTGRES_USER: postgres
+    ports:
+      - 4000:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
