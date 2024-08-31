@@ -4,7 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {},
+	"settings": {
+		"cody.internal.unstable": true
+	},
 	"extensions": {
 		"recommendations": [
 			"dbaeumer.vscode-eslint",
