@@ -38,3 +38,6 @@ next-env.d.ts
 
 # secrets
 *.secret.txt
+
+#db
+postgres-data
