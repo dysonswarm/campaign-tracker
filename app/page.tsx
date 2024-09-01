@@ -1,28 +1,54 @@
 "use client";
 
-import { useChat } from "ai/react";
+import { readStreamableValue } from "ai/rsc";
+import { useState } from "react";
+import { continueConversationStreamText, Message } from "./actions";
+
+export const maxDuration = 30;
 
 export default function Chat() {
-	const { messages, input, handleInputChange, handleSubmit } = useChat();
+	const [conversation, setConversation] = useState<Message[]>([]);
+	const [input, setInput] = useState<string>("");
+
 	return (
 		<div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
 			<div className="space-y-4">
-				{messages.map((m) => (
-					<div key={m.id} className="whitespace-pre-wrap">
+				{conversation.map((message, index) => (
+					<div key={index} className="whitespace-pre-wrap">
 						<div>
-							<div className="font-bold">{m.role}</div>
-							<p>{m.content}</p>
+							<div className="font-bold">{message.role}</div>
+							<p>{message.content}</p>
 						</div>
 					</div>
 				))}
 			</div>
 
-			<form onSubmit={handleSubmit}>
+			<form
+				action={async () => {
+					setInput("");
+					const { messages, newMessage } =
+						await continueConversationStreamText([
+							...conversation,
+							{ role: "user", content: input },
+						]);
+
+					let textContent = "";
+
+					for await (const delta of readStreamableValue(newMessage)) {
+						textContent = `${textContent}${delta}`;
+
+						setConversation([
+							...messages,
+							{ role: "assistant", content: textContent },
+						]);
+					}
+				}}
+			>
 				<input
 					className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
 					value={input}
 					placeholder="Say something..."
-					onChange={handleInputChange}
+					onChange={(event) => setInput(event.target.value)}
 				/>
 			</form>
 		</div>

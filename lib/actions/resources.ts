@@ -27,7 +27,7 @@ export const createResource = async (input: NewResourceParams) => {
 			})),
 		);
 
-		return resource;
+		return "Resource successfully created.";
 	} catch (e) {
 		if (e instanceof Error)
 			return e.message.length > 0
