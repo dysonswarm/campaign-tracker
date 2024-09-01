@@ -3,7 +3,7 @@
 import { createResource } from "@/lib/actions/resources";
 import { findRelevantContent } from "@/lib/ai/embedding";
 import { openai } from "@ai-sdk/openai";
-import { streamText, tool } from "ai";
+import { generateText, streamText, tool } from "ai";
 import { createStreamableValue } from "ai/rsc";
 import { z } from "zod";
 
@@ -12,12 +12,23 @@ export interface Message {
 	content: string;
 }
 
+function addContextToPrompt(context: string, prompt: string) {
+	return `
+		You are a helpful assistant who has information for a knowledge base. Only use information from the knowledge base to answer the question."
+		Your knowledge base is:
+		${context}
+		Your question is:
+		${prompt}
+		`;
+}
+
 export async function continueConversationStreamText(history: Message[]) {
 	"use server";
 	const stream = createStreamableValue();
 	(async () => {
+		const model = openai("gpt-3.5-turbo");
 		const result = await streamText({
-			model: openai("gpt-3.5-turbo"),
+			model,
 			system: `You are a helpful assistant. Check your knowledge base before answering any questions.
 		Only respond to questions using information from tool calls.
 		if no relevant information is found in the tool calls, respond, "Sorry, I don't know."`,
@@ -41,12 +52,25 @@ export async function continueConversationStreamText(history: Message[]) {
 						question: z.string().describe("the users question"),
 					}),
 					execute: async ({ question }) => {
-						const similarGuides =
-							await findRelevantContent(question);
+						const similarGuides = await findRelevantContent(
+							question,
+							0.8,
+							25,
+						);
 						if (similarGuides.length === 0) {
 							return "Sorry, I don't know.";
 						}
-						return similarGuides[0].name;
+						const prompt = addContextToPrompt(
+							similarGuides.map((g) => g.name).join("\n"),
+							question,
+						);
+						console.log(prompt);
+						const result = await generateText({
+							model,
+							prompt,
+						});
+
+						return result.text;
 					},
 				}),
 			},
