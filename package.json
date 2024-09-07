@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "next dev --experimental-https",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
@@ -14,7 +14,8 @@
 		"db:seed": "tsx lib/db/seed.ts",
 		"db:studio": "drizzle-kit studio",
 		"prepare": "husky",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"vercel:env": "vercel env pull .env.local"
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^0.0.54",

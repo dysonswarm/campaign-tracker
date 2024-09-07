@@ -10,6 +10,11 @@
 		"editor.formatOnSave": true,
 	},
 	"extensions": {
-		"recommendations": ["dbaeumer.vscode-eslint", "prisma.prisma"],
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+			"prisma.prisma",
+			"esbenp.prettier-vscode",
+			"github.vscode-github-actions",
+		],
 	},
 }

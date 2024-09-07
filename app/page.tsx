@@ -3,6 +3,7 @@
 import { readStreamableValue } from "ai/rsc";
 import { useState } from "react";
 import { continueConversationStreamText, Message } from "./actions";
+import { Input } from "@/components/ui/input";
 
 export const maxDuration = 30;
 
@@ -44,7 +45,7 @@ export default function Chat() {
 					}
 				}}
 			>
-				<input
+				<Input
 					className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
 					value={input}
 					placeholder="Say something..."
