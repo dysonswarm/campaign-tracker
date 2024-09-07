@@ -14,7 +14,35 @@
 			"nvmVersion": "latest"
 		}
 	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg",
+				"dbaeumer.vscode-eslint",
+				"prisma.prisma",
+				"esbenp.prettier-vscode",
+				"github.vscode-github-actions",
+				"sourcegraph.cody-ai",
+				"github.vscode-pull-request-github",
+				"ms-azuretools.vscode-docker"
+			],
+			"settings": {
+				"sqltools.connections": [
+					{
+						"name": "Container database",
+						"driver": "PostgreSQL",
+						"previewLimit": 50,
+						"server": "localhost",
+						"port": 5432,
+						"database": "campaign-tracker",
+						"username": "postgres",
+						"password": "postgres"
+					}
+				]
+			}
+		}
+	},
 	"forwardPorts": [3000],
-	"postAttachCommand": ["bash", ".devcontainer/post-attach.sh"],
-	"remoteUser": "root"
+	"postAttachCommand": ["bash", ".devcontainer/post-attach.sh"]
 }
