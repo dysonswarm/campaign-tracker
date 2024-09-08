@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-pnpm install
-
-pnpm db:migrate && pnpm db:seed
 
 FILE=./.env
 if [[ -f "$FILE" ]]; then
@@ -21,4 +18,8 @@ LANGCHAIN_API_KEY=$langchainapikey
 LANGCHAIN_PROJECT=campaign-tracker-$(cut -d @ -f 1 <<< "$email")
 EOF
 fi
+
+pnpm install
+
+pnpm db:migrate && pnpm db:seed
 
