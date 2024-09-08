@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 pnpm install
 
-pnpm setup
+pnpm db:migrate && pnpm db:seed
 
 FILE=./.env
 if [[ -f "$FILE" ]]; then
@@ -13,7 +13,7 @@ else
     read -p "LANGCHAIN_API_KEY: " langchainapikey
 
     cat << EOF >> ./.env
-DATABASE_URL=postgresql://localhost:5432/campaign-tracker?sslmode=require
+DATABASE_URL=postgresql://campaign-tracker:postgres@localhost:5432/campaign-tracker
 OPENAI_API_KEY=$openapikey
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
