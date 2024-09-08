@@ -4,7 +4,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: app/Dockerfile
 
         volumes:
             - ../..:/workspaces:cached
@@ -19,14 +19,21 @@ services:
         # (Adding the "ports" property to this file will not forward from a Codespace.)
 
     db:
-        image: postgres:latest
+        build:
+            context: ./db
+            dockerfile: Dockerfile
+            network: host
+        #image: postgressql:16
         restart: unless-stopped
         volumes:
             - postgres-data:/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: postgres
-            POSTGRES_USER: postgres
-            POSTGRES_DB: campaign-tracker
+            POSTGRES_USER: campaign-tracker
+    adminer:
+        image: adminer
+        restart: always
+        network_mode: service:db
         # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
         # (Adding the "ports" property to this file will not forward from a Codespace.)
 

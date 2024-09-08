@@ -15,7 +15,8 @@
 		"db:studio": "drizzle-kit studio",
 		"prepare": "husky",
 		"format": "prettier --write .",
-		"vercel:env": "vercel env pull .env.local"
+		"vercel:env": "vercel env pull .env.local",
+		"setup": "pnpm db:migrate && pnpm db:seed"
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^0.0.54",

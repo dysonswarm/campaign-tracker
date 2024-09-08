@@ -36,13 +36,13 @@
 						"server": "localhost",
 						"port": 5432,
 						"database": "campaign-tracker",
-						"username": "postgres",
-						"password": "postgres"
+						"password": "postgres",
+						"username": "campaign-tracker"
 					}
 				]
 			}
 		}
 	},
-	"forwardPorts": [3000],
+	"forwardPorts": [3000, 8080],
 	"postAttachCommand": ["bash", ".devcontainer/post-attach.sh"]
 }
