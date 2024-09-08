@@ -6,8 +6,11 @@ if [[ -f "$FILE" ]]; then
 else
     while [[ -z "$openapikey" ]]; do
         read -p "OPENAI_API_KEY: " openapikey
-    done    
-    read -p "LANGCHAIN_API_KEY: " langchainapikey
+    done
+    while [[ -z "$langchainapikey" ]]; do
+        read -p "LANGCHAIN_API_KEY: " langchainapikey
+    done 
+    
 
     cat << EOF >> ./.env
 DATABASE_URL=postgresql://campaign-tracker:postgres@localhost:5432/campaign-tracker
