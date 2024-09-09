@@ -6,7 +6,7 @@ const runSeed = async () => {
 		throw new Error("DATABASE_URL is not defined");
 	}
 
-	console.log("⏳ Sedding database...");
+	console.log("⏳ Seeding database...");
 
 	const start = Date.now();
 
