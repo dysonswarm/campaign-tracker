@@ -16,7 +16,7 @@ else
 DATABASE_URL=postgresql://campaign-tracker:postgres@localhost:5432/campaign-tracker
 OPENAI_API_KEY=$openapikey
 LANGCHAIN_TRACING_V2=true
-LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
+LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
 LANGCHAIN_API_KEY=$langchainapikey
 LANGCHAIN_PROJECT=campaign-tracker-$(cut -d @ -f 1 <<< "$(git config user.email)")
 EOF

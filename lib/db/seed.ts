@@ -1,6 +1,7 @@
 import { env } from "@/lib/env.mjs";
 import { createResource } from "../actions/resources";
-
+import { iterateFiles } from "../../ai/iterate-files.mjs";
+import fs from "fs";
 const runSeed = async () => {
 	if (!env.DATABASE_URL) {
 		throw new Error("DATABASE_URL is not defined");
@@ -10,10 +11,13 @@ const runSeed = async () => {
 
 	const start = Date.now();
 
-	// TODO: Add seed logic here
-	const resource = await createResource({ content: "Hello World" });
-
-	console.log("Inserted resource", resource);
+	await iterateFiles("./data/api", async (path: string) => {
+		if (path.endsWith(".md")) {
+			const file = fs.readFileSync(path, "utf8");
+			const resource = await createResource({ content: file });
+			console.log("Inserted resource", resource);
+		}
+	});
 
 	const end = Date.now();
 
