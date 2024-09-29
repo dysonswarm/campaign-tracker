@@ -1,0 +1,48 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+	"name": "Node.js & PostgreSQL",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"nodeGypDependencies": true,
+			"installYarnUsingApt": true,
+			"version": "lts",
+			"pnpmVersion": "latest",
+			"nvmVersion": "latest"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg",
+				"dbaeumer.vscode-eslint",
+				"prisma.prisma",
+				"esbenp.prettier-vscode",
+				"github.vscode-github-actions",
+				"sourcegraph.cody-ai",
+				"github.vscode-pull-request-github",
+				"ms-azuretools.vscode-docker"
+			],
+			"settings": {
+				"sqltools.connections": [
+					{
+						"name": "Container database",
+						"driver": "PostgreSQL",
+						"previewLimit": 50,
+						"server": "localhost",
+						"port": 5432,
+						"database": "campaign-tracker",
+						"password": "postgres",
+						"username": "campaign-tracker"
+					}
+				]
+			}
+		}
+	},
+	"forwardPorts": [3000, 8080, 27017],
+	"postAttachCommand": ["bash", ".devcontainer/post-attach.sh"]
+}

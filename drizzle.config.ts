@@ -1,0 +1,15 @@
+import { env } from "@/lib/env/server";
+import type { Config } from "drizzle-kit";
+
+export default {
+	schema: "./lib/db/schema",
+	dialect: "postgresql",
+	out: "./lib/db/migrations",
+	dbCredentials: {
+		url: env.DATABASE_URL,
+	},
+	migrations: {
+		table: "migrations",
+		prefix: "unix",
+	},
+} satisfies Config;

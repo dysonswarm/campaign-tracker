@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": ".",
+		},
+	],
+	"settings": {
+		"cody.internal.unstable": true,
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true,
+	},
+	"extensions": {
+		"recommendations": [
+			"mtxr.sqltools",
+			"mtxr.sqltools-driver-pg",
+			"dbaeumer.vscode-eslint",
+			"prisma.prisma",
+			"esbenp.prettier-vscode",
+			"github.vscode-github-actions",
+			"sourcegraph.cody-ai",
+			"github.vscode-pull-request-github",
+			"ms-azuretools.vscode-docker",
+		],
+	},
+}
