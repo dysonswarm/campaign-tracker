@@ -2,6 +2,12 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"command": "pnpm load:embeddings",
+			"name": "Run pnpm load:embeddings",
+			"request": "launch",
+			"type": "node-terminal"
+		},
+		{
 			"name": "Launch File",
 			"program": "${file}",
 			"request": "launch",

@@ -1,4 +1,4 @@
-import { env } from "@/lib/env.mjs";
+import { env } from "@/lib/env/server";
 import { createResource } from "../actions/resources";
 import { iterateFiles } from "../../ai/iterate-files.mjs";
 import fs from "fs";
